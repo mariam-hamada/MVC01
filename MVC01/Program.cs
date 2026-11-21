@@ -1,3 +1,5 @@
+using MVC01.CustomMiddleWare;
+
 namespace MVC01
 {
     public class Program
@@ -11,6 +13,17 @@ namespace MVC01
 
             var app = builder.Build();
 
+            app.UseMiddleware<RequestTimingMiddleWare>();
+
+            //app.Use(async (context, next) =>
+
+            //{
+            //    Console.WriteLine("Hello");//Request
+            //    await next.Invoke(context);
+            //    Console.WriteLine("Bye");//Response
+            //});
+
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -21,9 +34,10 @@ namespace MVC01
 
             app.UseHttpsRedirection();
             app.UseRouting();
-
+            //app.UseAuthentication();
             app.UseAuthorization();
 
+            //app.UseStaticFiles();
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
